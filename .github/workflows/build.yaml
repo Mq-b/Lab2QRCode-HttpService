@@ -62,7 +62,7 @@ jobs:
       - name: Build ${{ matrix.mode }}
         shell: bash
         run: |
-          cmake -S . -B ./build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.mode }}
+          cmake -S . -B ./build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.mode }} -DCMAKE_PREFIX_PATH="./deps"
           cmake --build ./build --config ${{ matrix.mode }}
 
       - name: Test
