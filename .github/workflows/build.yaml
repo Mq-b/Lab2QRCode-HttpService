@@ -47,14 +47,14 @@ jobs:
           submodules: recursive
 
       - name: Setup Zlib
-        uses: .github/lib/build_cmake_lib.yaml
+        uses: ./.github/lib/build_cmake_lib.yaml
         with:
           name: zlib
           url: https://github.com/madler/zlib.git
           mode: ${{ matrix.mode }}
 
       - name: Setup libhv
-        uses: .github/lib/build_cmake_lib.yaml
+        uses: ./.github/lib/build_cmake_lib.yaml
         with:
           name: libhv
           url: https://github.com/ithewei/libhv.git
