@@ -18,7 +18,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ZLIB_CONST)
 
 if(MSVC)
-    set_property(TARGET ${PROJECT_NAME} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
     add_compile_options(/EHsc /utf-8 /bigobj)
 endif()
 
