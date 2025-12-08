@@ -1,0 +1,72 @@
+name: build and publish windows
+
+env:
+  TARGET_NAME: Lab2QRCode-HttpService
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [
+          windows-latest,
+          ubuntu-latest
+        ]
+        toolchain: [ msvc, clang, gcc ]
+        mode: [ Debug, Release ]
+        include:
+          - os: windows-latest
+            toolchain: msvc
+          - os: windows-latest
+            toolchain: clang
+
+          - os: ubuntu-latest
+            toolchain: gcc
+          - os: ubuntu-latest
+            toolchain: clang
+        exclude:
+          - os: windows-latest
+            toolchain: gcc
+          - os: ubuntu-latest
+            toolchain: msvc
+          - os: ubuntu-latest
+            toolchain: gcc
+
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Zlib
+        uses: .github/lib/build_cmake_lib.yaml
+        with:
+          name: zlib
+          url: https://github.com/madler/zlib.git
+          mode: ${{ matrix.mode }}
+
+      - name: Setup libhv
+        uses: .github/lib/build_cmake_lib.yaml
+        with:
+          name: libhv
+          url: https://github.com/ithewei/libhv.git
+          mode: ${{ matrix.mode }}
+
+      - name: Build ${{ matrix.mode }}
+        shell: bash
+        run: |
+          cmake -S . -B ./build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.mode }}
+          cmake --build ./build --config ${{ matrix.mode }}
+
+      - name: Test
+        run: xmake test
+
+
