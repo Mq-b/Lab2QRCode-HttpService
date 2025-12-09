@@ -1,7 +1,8 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.15)
 project(Lab2QRCode-HttpService)
 
 set(CMAKE_CXX_STANDARD 20)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/build/${CMAKE_BUILD_TYPE}/bin)
 
 find_package(libhv REQUIRED)
 find_package(ZLIB REQUIRED)
@@ -13,8 +14,11 @@ add_executable(${PROJECT_NAME}
         main.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
-target_link_libraries(${PROJECT_NAME} PRIVATE hv_static)
-target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB)
+target_link_libraries(${PROJECT_NAME} PRIVATE 
+    hv
+    ZLIB::ZLIB
+)
+
 target_compile_definitions(${PROJECT_NAME} PRIVATE ZLIB_CONST)
 
 if(MSVC)
