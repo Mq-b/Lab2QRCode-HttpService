@@ -39,6 +39,7 @@ jobs:
           submodules: recursive
 
       - name: Setup MSVC Developer Command Prompt
+        if: "${{ matrix.os }}" == "windows-latest"
         uses: TheMrMilchmann/setup-msvc-dev@v4
         with:
           arch: x64
