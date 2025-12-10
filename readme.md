@@ -4,7 +4,8 @@
 
 * [nlohmann-json](https://github.com/nlohmann/json)
 * [zlib](https://github.com/madler/zlib)
-* [libhv](https://github.com/ithewei/libhv)
+* [asio](https://github.com/chriskohlhoff/asio)
+* [spdlog](https://github.com/gabime/spdlog)
 
 ## 服务器API
 

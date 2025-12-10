@@ -51,13 +51,13 @@ jobs:
           cmake --build ../zlib/build --config ${{ matrix.mode }}
           cmake --install ../zlib/build --prefix "${{ github.workspace }}/deps"
 
-      - name: Setup libhv
+      - name: Setup spdlog
         shell: bash
         run: |
-          git clone --depth 1 https://github.com/ithewei/libhv.git ../libhv --recurse
-          cmake -S ../libhv -B ../libhv/build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.mode }}
-          cmake --build ../libhv/build --config ${{ matrix.mode }}
-          cmake --install ../libhv/build --prefix "${{ github.workspace }}/deps"
+          git clone --depth 1 https://github.com/gabime/spdlog.git ../spdlog --recurse
+          cmake -S ../spdlog -B ../spdlog/build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.mode }} -DSPDLOG_BUILD_EXAMPLE=OFF -DSPDLOG_BUILD_TESTS=OFF -DSPDLOG_BUILD_SHARED=OFF
+          cmake --build ../spdlog/build --config ${{ matrix.mode }}
+          cmake --install ../spdlog/build --prefix "${{ github.workspace }}/deps"
 
       - name: Build ${{ matrix.mode }}
         shell: bash
