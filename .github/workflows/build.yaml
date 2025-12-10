@@ -8,7 +8,6 @@ on:
   pull_request:
   workflow_dispatch:
 
-
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -16,15 +15,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [
-          windows-latest,
-          ubuntu-latest
-        ]
-        toolchain: [ msvc, clang, gcc ]
+        os: [ windows-latest, ubuntu-latest ]
+        toolchain: [ cl, clang, gcc ]
         mode: [ Debug, Release ]
         include:
           - os: windows-latest
-            toolchain: msvc
+            toolchain: cl
           - os: windows-latest
             toolchain: clang
           - os: ubuntu-latest
@@ -35,13 +31,17 @@ jobs:
           - os: windows-latest
             toolchain: gcc
           - os: ubuntu-latest
-            toolchain: msvc
-
+            toolchain: cl
 
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Setup MSVC Developer Command Prompt
+        uses: TheMrMilchmann/setup-msvc-dev@v4
+        with:
+          arch: x64
 
       - name: Setup Zlib
         shell: bash
