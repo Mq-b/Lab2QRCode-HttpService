@@ -1,4 +1,4 @@
-#include "compress.hpp"
+#include "compress.h"
 
 #include <vector>
 #include <limits>
