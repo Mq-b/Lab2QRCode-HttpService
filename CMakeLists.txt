@@ -20,7 +20,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         spdlog::spdlog_header_only
 )
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE ASIO_STANDALONE)
+#target_compile_definitions(${PROJECT_NAME} PRIVATE ASIO_STANDALONE)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ZLIB_CONST)
 
 if (MSVC)
